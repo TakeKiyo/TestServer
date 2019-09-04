@@ -16,34 +16,32 @@ public class Controller {
     public void Clicked(ActionEvent event) {
         String result ="接続されました";
         resultLabel.setText(result);
-        MyThread thread = null;
-        Socket socket = null;
-        try {
-            ServerSocket ServerSocket = new ServerSocket(5000);
-            while(true) {
-
-                System.out.println("null?:" + Objects.nonNull(thread));
-
-
-
-
-                if (Objects.nonNull(thread)){
-                    thread.destroyThread();
-                }
-                System.out.println("null?:" + Objects.nonNull(thread));
-                socket = ServerSocket.accept();
-                thread= new MyThread(socket);
-                thread.start();
-            }
-        }catch(IOException e){
-            System.out.println(e);
-        }
-
+        StartThread StartThread = new StartThread();
+        StartThread.start();
     }
+
     public void Finish(ActionEvent event) {
         System.exit(0);
     }
 
+
+    class StartThread extends Thread {
+        private Socket socket = null;
+        private MyThread thread = null;
+        public void run(){
+            try {
+                ServerSocket ServerSocket = new ServerSocket(5000);
+                while(true) {
+                    socket = ServerSocket.accept();
+                    thread= new MyThread(socket);
+                    thread.start();
+                }
+            }catch(IOException e){
+                System.out.println(e);
+            }
+
+        }
+    }
     class MyThread extends Thread {
         private Socket socket;
         private boolean isActive;

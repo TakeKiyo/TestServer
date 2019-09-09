@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$MyThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$MyThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$StartThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$StartThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$InThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$InThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$OutThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$OutThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -260,7 +257,7 @@
       <workItem from="1567751199707" duration="879000" />
       <workItem from="1567754814523" duration="969000" />
       <workItem from="1567758262675" duration="10437000" />
-      <workItem from="1568020656380" duration="9900000" />
+      <workItem from="1568020656380" duration="12127000" />
     </task>
     <servers />
   </component>

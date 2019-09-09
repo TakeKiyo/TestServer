@@ -135,6 +135,8 @@ public class Controller {
                         String sql = String.format("INSERT INTO tabletest VALUES (%d,'%s',0);",num,str);
                         int result = statement.executeUpdate(sql);
                         System.out.println("結果１：" + result);
+                        statement.close();
+                        connection.close();
                     } catch (SQLException e) {
                         e.printStackTrace();
                     } catch (Exception e) {
@@ -178,8 +180,13 @@ public class Controller {
                             String combined = String.valueOf(result_id) + result_val;
                             byte[] data = combined.getBytes();
                             out.write(data);
-                            String updatesql = String.format("update");
+                            String updatesql = String.format("update test.tabletest set flag = 1 where ID=  %d and VALUE = '%s'",result_id,result_val);
+                            statement.executeUpdate(updatesql);
                         }
+                        cResult.close();
+                        statement.close();
+                        connection.close();
+
                         Thread.sleep(10000);
                 }catch (Exception e) {
                 }

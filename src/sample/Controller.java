@@ -9,7 +9,10 @@ import javafx.scene.control.TextArea;
 import java.net.*;
 import java.io.*;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
 
 public class Controller {
@@ -108,33 +111,38 @@ public class Controller {
                 int recvMsgSize; // 受信メッセージサイズ
                 while(this.isActive) {
                     System.out.println("whileすたーと");
-                    byte[] bytenum = new byte[1]; // 受信バッファ
+                    byte[] bytenum = new byte[21]; // 受信バッファ
                     //データ受信
                     int totalBytesRcvd = 0;
-                    in.read(bytenum,0,1);
-                    String aa = new String(bytenum);
-                    int num = Integer.parseInt(aa);
-                    System.out.println(num);
-                    byte[] receiveBuf = new byte[num];
+                    in.read(bytenum,0,21);
+                    bytenum = Arrays.copyOfRange(bytenum,1,21);
+                    String first = new String(bytenum);
+                    int id = Integer.parseInt(first.substring(4,6));
+                    int rest_byte = 1;
+                    if (id== 52){
+                        rest_byte = 41;
+                    }
+                    byte[] receiveBuf = new byte[rest_byte];
                     totalBytesRcvd = 0;
                     while(true){
                         recvMsgSize = in.read(receiveBuf);
                         totalBytesRcvd += recvMsgSize;
-                        if (totalBytesRcvd == num){
+                        if (totalBytesRcvd == rest_byte){
                             break;
                         }
                     }
-                    String str = new String(receiveBuf);
-                    System.out.println(str);
+                    receiveBuf = Arrays.copyOfRange(receiveBuf,0,38);
+                    String second = new String(receiveBuf);
+                    String str = first + second;
+                    System.out.println("got:"+str);
                     String txt = Output.getText();
                     Output.setText(txt + "\n" + str);
                     try {
                         Class.forName("com.mysql.cj.jdbc.Driver");
                         Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
                         Statement statement = connection.createStatement();
-                        String sql = String.format("INSERT INTO tabletest VALUES (%d,'%s',0);",num,str);
-                        int result = statement.executeUpdate(sql);
-                        System.out.println("結果１：" + result);
+                        String sql = String.format("INSERT INTO value_table VALUES ('%s',0);",str);
+                        statement.executeUpdate(sql);
                         statement.close();
                         connection.close();
                     } catch (SQLException e) {
@@ -164,7 +172,8 @@ public class Controller {
         public void destroyThread(){
             this.isActive = false;
         }
-        int nummm;
+        public String second_sql = "";
+        public String bc_data = "";
         public void run(){
             byte[] senddata = "234".getBytes();
             while (this.isActive){
@@ -172,21 +181,50 @@ public class Controller {
                         Class.forName("com.mysql.cj.jdbc.Driver");
                         Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
                         Statement statement = connection.createStatement();
-                        String sql = "select * from test.tabletest where flag = 0";
+                        String sql = "select * from test.value_table where flag = 0";
                         ResultSet cResult = statement.executeQuery(sql);
                         while(cResult.next()){
-                            int result_id = cResult.getInt("ID");
-                            String result_val = cResult.getString("VALUE");
-                            String combined = String.valueOf(result_id) + result_val;
-                            byte[] data = combined.getBytes();
-                            out.write(data);
-                            String updatesql = String.format("update test.tabletest set flag = 1 where ID=  %d and VALUE = '%s'",result_id,result_val);
-                            statement.executeUpdate(updatesql);
+                            String value = cResult.getString("value");
+                            System.out.println(value);
+                            int id = Integer.parseInt(value.substring(4,6));
+                            if (id == 52){
+                                String final_result;
+                                bc_data = value.substring(28,42);
+                                System.out.println(bc_data);
+                                second_sql = String.format("select * from test.ID_02 where bc_data = '%s';",bc_data);
+                                System.out.println(second_sql);
+                                Statement second_statement = connection.createStatement();
+                                ResultSet second_result = second_statement.executeQuery(second_sql);
+                                while(second_result.next()){
+                                    String response_code = second_result.getString("response_code");
+                                    System.out.println(response_code);
+                                    Calendar cl = Calendar.getInstance();
+                                    SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
+                                    final_result = value.substring(0,4)+"02"+value.substring(6,8)+sdf.format(cl.getTime()) + value.substring(14,28) + response_code;
+
+                                    byte[] first = new byte[1];
+                                    first[0] = 0x02;
+                                    String fi_st = new String(first);
+                                    byte[] last = new byte[1];
+                                    first[0] = 0x03;
+                                    String la_st = new String(last);
+
+                                    final_result = fi_st + final_result;
+                                    final_result = final_result + "11" + la_st; //11はBCC
+
+                                    System.out.println(final_result);
+                                    byte[] data = final_result.getBytes();
+                                    out.write(data);
+                                    String updatesql = String.format("update test.value_table set flag = 1 where value = '%s'",value);
+                                    second_statement.executeUpdate(updatesql);
+                                }
+                                second_result.close();
+                                second_statement.close();
+                            }
                         }
                         cResult.close();
                         statement.close();
                         connection.close();
-
                         Thread.sleep(10000);
                 }catch (Exception e) {
                 }

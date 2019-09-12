@@ -56,7 +56,6 @@ public class Controller {
     class MyThread extends Thread {
         private Socket socket;
         private boolean isActive;
-        public int BUFSIZE = 32;
 
         public MyThread(Socket socket){
             this.socket = socket;
@@ -131,9 +130,12 @@ public class Controller {
                             break;
                         }
                     }
+                    byte[] receiveBCC = Arrays.copyOfRange(receiveBuf,38,40);
                     receiveBuf = Arrays.copyOfRange(receiveBuf,0,38);
                     String second = new String(receiveBuf);
                     String str = first + second;
+                    String receivedBCC = new String(receiveBCC);
+                    System.out.println(receivedBCC);
                     System.out.println("got:"+str);
                     String txt = Output.getText();
                     Output.setText(txt + "\n" + str);
@@ -175,7 +177,6 @@ public class Controller {
         public String second_sql = "";
         public String bc_data = "";
         public void run(){
-            byte[] senddata = "234".getBytes();
             while (this.isActive){
                 try{
                         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -187,8 +188,8 @@ public class Controller {
                             String value = cResult.getString("value");
                             System.out.println(value);
                             int id = Integer.parseInt(value.substring(4,6));
+                            String final_result;
                             if (id == 52){
-                                String final_result;
                                 bc_data = value.substring(28,42);
                                 System.out.println(bc_data);
                                 second_sql = String.format("select * from test.ID_02 where bc_data = '%s';",bc_data);
@@ -201,7 +202,7 @@ public class Controller {
                                     Calendar cl = Calendar.getInstance();
                                     SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
                                     final_result = value.substring(0,4)+"02"+value.substring(6,8)+sdf.format(cl.getTime()) + value.substring(14,28) + response_code;
-
+                                    //add STX,ETX
                                     byte[] first = new byte[1];
                                     first[0] = 0x02;
                                     String fi_st = new String(first);
@@ -214,7 +215,27 @@ public class Controller {
 
                                     System.out.println(final_result);
                                     byte[] data = final_result.getBytes();
-                                    out.write(data);
+                                    try{
+                                        out.write(data);
+                                    }catch(IOException e){
+                                        Thread.sleep(10000);
+                                        try{
+                                            out.write(data);
+                                        }catch(IOException e2){
+                                            Thread.sleep(10000);
+                                            try{
+                                                out.write(data);
+                                            }catch(IOException e3){
+                                                destroyThread();
+                                                second_result.close();
+                                                second_statement.close();
+                                                cResult.close();
+                                                statement.close();
+                                                connection.close();
+                                            }
+                                        }
+                                    }
+//                                    out.write(data);
                                     String updatesql = String.format("update test.value_table set flag = 1 where value = '%s'",value);
                                     second_statement.executeUpdate(updatesql);
                                 }
@@ -226,7 +247,7 @@ public class Controller {
                         statement.close();
                         connection.close();
                         Thread.sleep(10000);
-                }catch (Exception e) {
+                }catch (SQLException | ClassNotFoundException | InterruptedException e) {
                 }
 
             }

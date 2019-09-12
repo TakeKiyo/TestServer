@@ -6,6 +6,8 @@
       <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$InThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$InThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$MyThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$MyThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$OutThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$OutThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$StartThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$StartThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Controller.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -137,7 +139,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
@@ -275,7 +277,7 @@
       <workItem from="1568020656380" duration="13230000" />
       <workItem from="1568094958629" duration="4945000" />
       <workItem from="1568127780422" duration="11424000" />
-      <workItem from="1568262246217" duration="1955000" />
+      <workItem from="1568262246217" duration="6316000" />
     </task>
     <servers />
   </component>

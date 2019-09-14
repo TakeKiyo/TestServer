@@ -17,6 +17,9 @@ public class Response {
     public Resultset second_result;
     public Resultset cResult;
     public Statement statement;
+    public String final_result;
+    public Calendar cl = Calendar.getInstance();
+
     public Response(String value,Connection con,OutputStream outputStream,Statement statement){
         this.value  = value;
         this.connection = con;
@@ -24,35 +27,12 @@ public class Response {
         this.statement = statement;
 
     }
-    public String final_result;
-    public int result_cnt=0;
-    public Calendar cl = Calendar.getInstance();
-
-//    public Response(String value, Connection connection, OutputStream outputStream) {
-//    }
 
     public void update(String value) throws SQLException {
         String updatesql = String.format("update test.value_table set flag = 1 where value = '%s'", value);
         second_statement.executeUpdate(updatesql);
     }
-    public boolean send_data(OutputStream out,byte[] data) throws InterruptedException {
-        try{
-            out.write(data);
-        }catch(IOException e){
-            Thread.sleep(10000);
-            try{
-                out.write(data);
-            }catch(IOException e2){
-                Thread.sleep(10000);
-                try{
-                    out.write(data);
-                }catch(IOException e3){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+
 
     public void connect_db(){
         try{
@@ -81,10 +61,6 @@ public class Response {
 
     }
 
-    public void send() {
-        byte[] data = final_result.getBytes();
 
-
-    }
 }
 

@@ -117,7 +117,7 @@ public class Controller {
         if (seq_num_get == 10000) seq_num_get = 1;
     }
 
-    public boolean send_data(OutputStream out,byte[] data) throws InterruptedException {
+    public static boolean send_data(OutputStream out, byte[] data) throws InterruptedException {
         try{
             out.write(data);
         }catch(IOException e){
@@ -305,7 +305,7 @@ public class Controller {
         }
     }
 
-    class OutThread extends Thread{
+    static class OutThread extends Thread{
         private OutputStream out;
         private boolean isActive;
         static final String URL = "jdbc:mysql://localhost:3306/test";
@@ -316,7 +316,12 @@ public class Controller {
             this.out = outputStream;
             this.isActive = true;
         }
-        public  void destroyThread(){
+
+        public static void closeResultset(ResultSet resultset) throws SQLException {
+            resultset.close();
+        }
+
+        public void destroyThread(){
             this.isActive = false;
         }
         public String second_sql = "";
@@ -339,18 +344,8 @@ public class Controller {
                             String final_result;
                             if (id == 52){
                                 Out52class out52class = new Out52class(value,connection,out,statement);
-                                final_result = out52class.execute_query();
-                                byte[] data= final_result.getBytes();
-                                if (!(send_data(out, data))) {
-                                    destroyThread();
-                                    out52class.close_second_connection();
-                                    cResult.close();
-                                    statement.close();
-                                    connection.close();
-                                }
-                                out52class.update(value);
-                                out52class.close_second_connection();
-                                }
+                                out52class.execute_query();
+                            }
                             }
                     cResult.close();
                     statement.close();

@@ -331,26 +331,26 @@ public class Controller {
         public void run(){
             while (this.isActive){
                 try{
-                        Class.forName("com.mysql.cj.jdbc.Driver");
-                        Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                        Statement statement = connection.createStatement();
-                        String sql = "select * from test.value_table where flag = 0";
-                        cResult = statement.executeQuery(sql);
-                        while(cResult.next()){
-                            String value = cResult.getString("value");
-                            System.out.println(value);
-                            int id = Integer.parseInt(value.substring(4,6));
-                            System.out.println("id:"+ String.valueOf(id));
-                            String final_result;
-                            if (id == 52){
-                                Out52class out52class = new Out52class(value,connection,out,statement);
-                                out52class.execute_query();
-                            }
-                            }
+
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                    Statement statement = connection.createStatement();
+                    String sql = "select * from test.value_table where flag = 0";
+                    cResult = statement.executeQuery(sql);
+                    while(cResult.next()){
+                        String value = cResult.getString("value");
+                        System.out.println(value);
+                        int id = Integer.parseInt(value.substring(4,6));
+                        System.out.println("id:"+ String.valueOf(id));
+                        if (id == 52){
+                            Out52class out52class = new Out52class(value,connection,out,statement);
+                            out52class.execute_query();
+                        }
+                    }
                     cResult.close();
                     statement.close();
                     connection.close();
-                        } catch (InterruptedException e) {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -358,10 +358,9 @@ public class Controller {
                     e.printStackTrace();
                 }
                 try{
-                Thread.sleep(10000);
+                    Thread.sleep(10000);
                 }catch (InterruptedException e) {
                 }
-
             }
 
 

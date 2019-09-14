@@ -5,6 +5,7 @@ import com.mysql.cj.protocol.Resultset;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -14,7 +15,7 @@ public class Response {
     protected String value;
     protected OutputStream out;
     public Statement second_statement;
-    public Resultset second_result;
+    public ResultSet second_result;
     public Resultset cResult;
     public Statement statement;
     public String final_result;
@@ -28,18 +29,14 @@ public class Response {
 
     }
 
-    public void update(String value) throws SQLException {
-        String updatesql = String.format("update test.value_table set flag = 1 where value = '%s'", value);
-        second_statement.executeUpdate(updatesql);
-    }
-
-
-    public void connect_db(){
+    public ResultSet make_connection(String second_sql){
         try{
             second_statement = connection.createStatement();
+            second_result = (ResultSet) second_statement.executeQuery(second_sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return (ResultSet) second_result;
     }
 
     public void add_stx_etx(){
@@ -58,8 +55,45 @@ public class Response {
     public String date(){
         SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
         return sdf.format(cl.getTime());
+    }
+
+
+    public void send_data() throws InterruptedException, SQLException {
+        byte[] data= final_result.getBytes();
+        try{
+            out.write(data);
+        }catch(IOException e){
+            Thread.sleep(10000);
+            try{
+                out.write(data);
+            }catch(IOException e2){
+                Thread.sleep(10000);
+                try{
+                    out.write(data);
+                }catch(IOException e3){
+                    close_second_connection();
+                    Controller.OutThread.closeResultset((ResultSet) cResult);
+                    statement.close();
+                    connection.close();
+                }
+            }
+        }
 
     }
+
+
+    public void update(String value) throws SQLException {
+        String updatesql = String.format("update test.value_table set flag = 1 where value = '%s'", value);
+        second_statement.executeUpdate(updatesql);
+    }
+
+    public void close_second_connection() throws SQLException {
+        second_result.close();
+        second_statement.close();
+
+    }
+
+
 
 
 }

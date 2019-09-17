@@ -1,20 +1,17 @@
 package sample;
 
-
-import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Out52class extends Response {
-    public Out52class(String value, Connection connection, OutputStream outputStream, Statement statement) throws SQLException {
+
+public class Out56class extends Response{
+    public Out56class(String value, Connection connection, OutputStream outputStream, Statement statement) throws SQLException {
         super(value, connection, outputStream,statement);
     }
     public ResultSet second_result;
-
-
     public void execute_query() throws SQLException, InterruptedException {
         String bc_data = value.substring(28, 42);
         String second_sql = String.format("select * from test.ID_02 where bc_data = '%s';", bc_data);
@@ -36,6 +33,4 @@ public class Out52class extends Response {
         close_second_connection();
 
     }
-
-
 }

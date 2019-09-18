@@ -342,14 +342,38 @@ public class Controller {
                         System.out.println(value);
                         int id = Integer.parseInt(value.substring(4,6));
                         System.out.println("id:"+ String.valueOf(id));
+                        Response res = null;
                         if (id == 52){
-                            Out52class out52class = new Out52class(value,connection,out,statement);
-                            out52class.execute_query();
+                            res = new Out52class(value,connection,out,statement);
+                        }else if(id==53){
+                            res = new Out53class(value,connection,out,statement);
+                        }else if(id==54){
+                            res = new Out54class(value,connection,out,statement);
+                        }else if(id==55){
+                            res = new Out55class(value,connection,out,statement);
+                        } else if (id==56){
+                            res = new Out56class(value,connection,out,statement);
+                        }else if(id==57){
+                            res = new Out57class(value,connection,out,statement);
+                        } else if(id==59){
+                            res = new Out59class(value,connection,out,statement);
+                        } else if(id==63){
+                            res = new Out63class(value,connection,out,statement);
+                        }else if(id==64){
+                            res = new Out64class(value,connection,out,statement);
+                        }else if(id==66){
+                            res = new Out66class(value,connection,out,statement);
+                        } else if(id==70){
+                            res = new Out70class(value,connection,out,statement);
                         }
+                        res.execute();
                     }
                     cResult.close();
+                    Out10class out10class = new Out10class("",connection,out,statement);
+                    out10class.execute();
                     statement.close();
                     connection.close();
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (SQLException e) {

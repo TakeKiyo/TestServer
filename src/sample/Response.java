@@ -10,7 +10,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-public class Response {
+
+abstract class Response {
+    public  String final_result;
     protected Connection connection;
     protected String value;
     protected OutputStream out;
@@ -18,8 +20,7 @@ public class Response {
     public ResultSet second_result;
     public Resultset cResult;
     public Statement statement;
-    public String final_result;
-    public Calendar cl = Calendar.getInstance();
+    public int result_cnt = 0;
 
     public Response(String value,Connection con,OutputStream outputStream,Statement statement){
         this.value  = value;
@@ -39,7 +40,7 @@ public class Response {
         return (ResultSet) second_result;
     }
 
-    public void add_stx_etx(){
+    public  void add_stx_etx(){
         String bcc = Controller.make_bcc(final_result);
         byte[] first = new byte[1];
         first[0] = 0x02;
@@ -52,13 +53,14 @@ public class Response {
     }
 
 
-    public String date(){
+    public static String date(){
+        Calendar cl = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
         return sdf.format(cl.getTime());
     }
 
 
-    public void send_data() throws InterruptedException, SQLException {
+    public  void send_data() throws InterruptedException, SQLException {
         byte[] data= final_result.getBytes();
         try{
             out.write(data);
@@ -81,7 +83,6 @@ public class Response {
 
     }
 
-
     public void update(String value) throws SQLException {
         String updatesql = String.format("update test.value_table set flag = 1 where value = '%s'", value);
         second_statement.executeUpdate(updatesql);
@@ -92,6 +93,22 @@ public class Response {
         second_statement.close();
 
     }
+
+    public void execute() throws SQLException, InterruptedException {
+        String second_sql = preConnection();
+        second_result = make_connection(second_sql);
+        postConnection(second_result);
+        Controller.add_seq_send();
+        add_stx_etx();
+        send_data();
+        update(value);
+        close_second_connection();
+
+    }
+
+    abstract String preConnection();
+    abstract void postConnection(ResultSet second_result) throws SQLException, InterruptedException;
+
 
 
 

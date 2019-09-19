@@ -2,6 +2,7 @@ package sample;
 
 import com.mysql.cj.protocol.Resultset;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Connection;
@@ -21,6 +22,7 @@ abstract class Response {
     public Resultset cResult;
     public Statement statement;
     public int result_cnt = 0;
+    public TextArea Output;
 
     public Response(String value,Connection con,OutputStream outputStream,Statement statement){
         this.value  = value;
@@ -58,6 +60,9 @@ abstract class Response {
         SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
         return sdf.format(cl.getTime());
     }
+    public void closeResultset(ResultSet resultset) throws SQLException {
+        resultset.close();
+    }
 
 
     public  void send_data() throws InterruptedException, SQLException {
@@ -74,13 +79,16 @@ abstract class Response {
                     out.write(data);
                 }catch(IOException e3){
                     close_second_connection();
-                    Controller.OutThread.closeResultset((ResultSet) cResult);
+                    closeResultset((ResultSet) cResult);
                     statement.close();
                     connection.close();
                 }
             }
         }
 
+    }
+    public String getFinal_result(){
+        return final_result;
     }
 
     public void update(String value) throws SQLException {

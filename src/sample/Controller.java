@@ -5,8 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 
+import javax.swing.*;
 import java.net.*;
 import java.io.*;
 import java.sql.*;
@@ -21,18 +23,18 @@ import java.util.List;
 
 public class Controller {
     public Button start;
-    public Label resultLabel;
+    public TextField resultLabel;
     public TextArea Output;
     public Statement statement = null;
     public Connection connection = null;
     public static List<String> bcc_byte = new ArrayList<String>();
     public List<String> id_list = new ArrayList<String>();
     public static String[] bcc_string = {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"};
-    public int[] length_list = {61,65,146,76,376,51,96,43,105,39,51,138};
+    public int[] length_list = {61,65,146,76,376,51,43,105,39,51,138};
     public static int seq_num_send;
     public static int seq_num_get;
     public void Clicked(ActionEvent event) {
-        String txt ="接続されました";
+        String txt ="接続待ち";
         resultLabel.setText(txt);
         StartThread StartThread = new StartThread();
         StartThread.start();
@@ -58,15 +60,12 @@ public class Controller {
         id_list.add("55");
         id_list.add("56");
         id_list.add("57");
-        id_list.add("58");
         id_list.add("59");
         id_list.add("63");
         id_list.add("64");
         id_list.add("66");
         id_list.add("70");
     }
-
-
     public void Finish(ActionEvent event) {
         System.exit(0);
     }
@@ -117,24 +116,11 @@ public class Controller {
         if (seq_num_get == 10000) seq_num_get = 1;
     }
 
-    public static boolean send_data(OutputStream out, byte[] data) throws InterruptedException {
-        try{
-            out.write(data);
-        }catch(IOException e){
-            Thread.sleep(10000);
-            try{
-                out.write(data);
-            }catch(IOException e2){
-                Thread.sleep(10000);
-                try{
-                    out.write(data);
-                }catch(IOException e3){
-                    return false;
-                }
-            }
-        }
-        return true;
+    synchronized void addText(String string){
+        Output.setText(string);
     }
+
+
 
     public int deal_seq(String expected_number,String actual_number){
 //        System.out.println(expected_number);
@@ -172,6 +158,8 @@ public class Controller {
                     if (Objects.nonNull(thread)){
                         thread.destroyThread();
                     }
+                    Output.setText("接続開始");
+                    resultLabel.setText("接続開始");
                     seq_num_send=0;
                     seq_num_get =0;
                     thread= new MyThread(socket);
@@ -279,7 +267,7 @@ public class Controller {
                         Calendar cl = Calendar.getInstance();
                         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
                         String txt = Output.getText();
-                        Output.setText(txt + "\n" + sdf.format(cl.getTime()) + " " + seq_flag + " " + bcc_flag + " " + " " + id_flag+ " " + len_flag+ str);
+                        addText("G " + sdf.format(cl.getTime()) + " " + seq_flag + " " + bcc_flag + " " + " " + id_flag+ " " + len_flag+ str + "\n" +txt );
                         try {
                             Class.forName("com.mysql.cj.jdbc.Driver");
                             Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -305,21 +293,19 @@ public class Controller {
         }
     }
 
-    static class OutThread extends Thread{
+    class OutThread extends Thread{
         private OutputStream out;
         private boolean isActive;
         static final String URL = "jdbc:mysql://localhost:3306/test";
         static final String USERNAME = "root";
         static final String PASSWORD = "";
+
         public OutThread(OutputStream outputStream){
 
             this.out = outputStream;
             this.isActive = true;
         }
 
-        public static void closeResultset(ResultSet resultset) throws SQLException {
-            resultset.close();
-        }
 
         public void destroyThread(){
             this.isActive = false;
@@ -366,8 +352,14 @@ public class Controller {
                         } else if(id==70){
                             res = new Out70class(value,connection,out,statement);
                         }
+
                         res.execute();
+                        Calendar cl = Calendar.getInstance();
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                        String txt = Output.getText();
+                        addText("S " + sdf.format(cl.getTime()) + res.getFinal_result() + "\n" + txt);
                     }
+
                     cResult.close();
                     Out10class out10class = new Out10class("",connection,out,statement);
                     out10class.execute();

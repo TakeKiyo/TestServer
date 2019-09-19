@@ -2,25 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/sample/Out10class.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/Out53class.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/Out54class.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/Out55class.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/Out57class.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/Out59class.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/Out63class.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/Out64class.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/Out66class.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/Out70class.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/Out58class.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/output.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$InThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$InThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$MyThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$MyThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$OutThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$OutThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$StartThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Controller$StartThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Out10class.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Out10class.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Out52class.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Out52class.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Out53class.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Out53class.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Out54class.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Out54class.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Out55class.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Out55class.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Out56class.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Out56class.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Out57class.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Out57class.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Out59class.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Out59class.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Out63class.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Out63class.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Out64class.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Out64class.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Out66class.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Out66class.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Out70class.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Out70class.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/Response.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/Response.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestServer/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TestServer/sample/sample.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Out52class.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Out52class.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Out56class.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Out56class.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Response.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/sample.fxml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -272,17 +280,12 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@8dfc43fc" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7408d322" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@8dfc43fc" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@3cc3f0a6" type="9fbbdea:ServiceModel$ServiceNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@8dfc43fc" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@368a754" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7408d322" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@51869051" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
           </expand>
           <select />
@@ -321,7 +324,8 @@
       <workItem from="1568339615245" duration="30819000" />
       <workItem from="1568441984994" duration="176000" />
       <workItem from="1568694212068" duration="12539000" />
-      <workItem from="1568780595922" duration="7295000" />
+      <workItem from="1568780595922" duration="15089000" />
+      <workItem from="1568873693956" duration="3868000" />
     </task>
     <servers />
   </component>

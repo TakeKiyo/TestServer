@@ -116,8 +116,17 @@ public class Controller {
         if (seq_num_get == 10000) seq_num_get = 1;
     }
 
-    synchronized void addText(String string){
-        Output.setText(string);
+    public synchronized void addText(String string,int SorG) {
+        String txt = Output.getText();
+        Calendar cl = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        // SorG == 1 => get
+        // SorG == 2 => send
+        if (SorG == 1){
+            Output.setText("G " + sdf.format(cl.getTime()) + " " + string + "\n" + txt);
+        } else if (SorG == 2){
+            Output.setText("S " + sdf.format(cl.getTime()) + " " + string +  "\n" + txt);
+        }
     }
 
 
@@ -264,10 +273,7 @@ public class Controller {
                         System.out.println("len_check:"+ String.valueOf(check_length(String.valueOf(id),i)));
                         System.out.println("id:" + String.valueOf(id));
                         System.out.println("got:" + str);
-                        Calendar cl = Calendar.getInstance();
-                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                        String txt = Output.getText();
-                        addText("G " + sdf.format(cl.getTime()) + " " + seq_flag + " " + bcc_flag + " " + " " + id_flag+ " " + len_flag+ str + "\n" +txt );
+                        addText(seq_flag + " " + bcc_flag + " " + " " + id_flag+ " " + len_flag+ str,1);
                         try {
                             Class.forName("com.mysql.cj.jdbc.Driver");
                             Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -354,10 +360,7 @@ public class Controller {
                         }
 
                         res.execute();
-                        Calendar cl = Calendar.getInstance();
-                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                        String txt = Output.getText();
-                        addText("S " + sdf.format(cl.getTime()) + res.getFinal_result() + "\n" + txt);
+                        addText(res.getFinal_result(),2);
                     }
 
                     cResult.close();
@@ -374,7 +377,7 @@ public class Controller {
                     e.printStackTrace();
                 }
                 try{
-                    Thread.sleep(10000);
+                    Thread.sleep(1000);
                 }catch (InterruptedException e) {
                 }
             }
